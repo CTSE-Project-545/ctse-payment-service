@@ -22,20 +22,22 @@ public class PaymentServiceImpl implements PaymentService {
 
         // Simulate payment success (you can add logic here)
         Payment payment = Payment.builder()
-                .cardHolderName(request.getCardHolderName())
-                .cardNumber(maskedCard)
-                .amount(request.getAmount())
-                .currency(request.getCurrency())
-                .paymentDate(LocalDateTime.now())
-                .build();
+            .cardHolderName(request.getCardHolderName())
+            .cardNumber(maskedCard)
+            .amount(request.getAmount())
+            .currency(request.getCurrency())
+            .paymentDate(LocalDateTime.now())
+            .cvv(request.getCvv())
+            .build();
 
         return paymentRepository.save(payment);
     }
 
     @Override
     public Payment getPaymentById(String id) {
-        return paymentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
+        Payment payment = paymentRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Payment not found"));
+        return payment;
     }
 
     private String maskCardNumber(String cardNumber) {

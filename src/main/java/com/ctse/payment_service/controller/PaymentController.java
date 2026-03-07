@@ -6,6 +6,8 @@ import com.ctse.payment_service.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/payments")
@@ -20,7 +22,11 @@ public class PaymentController {
     }
 
     @GetMapping("/{id}")
-    public Payment getPayment(@PathVariable String id) {
-        return paymentService.getPaymentById(id);
+    public Map<String, Object> getPayment(@PathVariable String id) {
+        Payment payment = paymentService.getPaymentById(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Payment successful");
+        response.put("payment", payment);
+        return response;
     }
 }
