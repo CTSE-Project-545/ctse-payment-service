@@ -12,7 +12,7 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
 
-EXPOSE 8080
-ENV PORT=8080
+EXPOSE 8082
+ENV PORT=8082
 
 ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT} -Dcom.mongodb.driver.ssl=true -Dcom.mongodb.driver.sslInvalidHostNameAllowed=true -jar /app/app.jar"]
