@@ -22,4 +22,7 @@ public class PaymentRequest {
 
     @NotBlank
     private String currency;
+
+    @NotBlank
+    private String orderId;
 }

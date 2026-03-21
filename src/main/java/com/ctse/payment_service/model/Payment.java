@@ -28,4 +28,6 @@ public class Payment {
 
     private String cvv;
 
+    private String orderId;
+
 }

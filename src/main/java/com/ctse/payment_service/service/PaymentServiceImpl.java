@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class PaymentServiceImpl implements PaymentService {
             .currency(request.getCurrency())
             .paymentDate(LocalDateTime.now())
             .cvv(request.getCvv())
+            .orderId(request.getOrderId())
             .build();
 
         return paymentRepository.save(payment);
@@ -38,6 +40,11 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = paymentRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Payment not found"));
         return payment;
+    }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
     }
 
     private String maskCardNumber(String cardNumber) {

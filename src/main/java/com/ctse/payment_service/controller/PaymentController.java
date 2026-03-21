@@ -6,11 +6,13 @@ import com.ctse.payment_service.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/api/payments")
 @RequiredArgsConstructor
 public class PaymentController {
 
@@ -28,5 +30,10 @@ public class PaymentController {
         response.put("message", "Payment successful");
         response.put("payment", payment);
         return response;
+    }
+
+    @GetMapping
+    public List<Payment> getAllPayments() {
+        return paymentService.getAllPayments();
     }
 }
