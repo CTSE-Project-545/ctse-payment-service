@@ -1,6 +1,7 @@
 package com.ctse.payment_service.controller;
 
 import com.ctse.payment_service.dto.PaymentRequest;
+import com.ctse.payment_service.dto.PaymentOrderDetailResponseDTO;
 import com.ctse.payment_service.model.Payment;
 import com.ctse.payment_service.service.PaymentService;
 import jakarta.validation.Valid;
@@ -35,5 +36,10 @@ public class PaymentController {
     @GetMapping
     public List<Payment> getAllPayments() {
         return paymentService.getAllPayments();
+    }
+
+    @GetMapping("/paymentDetails")
+    public List<PaymentOrderDetailResponseDTO> getPaymentDetailsWithOrder() {
+        return paymentService.getPaymentDetailsWithOrder();
     }
 }
