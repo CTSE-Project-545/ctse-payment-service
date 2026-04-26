@@ -77,6 +77,30 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.findAll();
     }
 
+    @Override
+    public Payment updatePaymentById(String id, PaymentRequest request) {
+        Payment existingPayment = paymentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+
+        existingPayment.setCardHolderName(request.getCardHolderName());
+        existingPayment.setCardNumber(maskCardNumber(request.getCardNumber()));
+        existingPayment.setAmount(request.getAmount());
+        existingPayment.setCurrency(request.getCurrency());
+        existingPayment.setPaymentDate(LocalDateTime.now());
+        existingPayment.setCvv(request.getCvv());
+        existingPayment.setOrderId(request.getOrderId());
+
+        return paymentRepository.save(existingPayment);
+    }
+
+    @Override
+    public void deletePaymentById(String id) {
+        if (!paymentRepository.existsById(id)) {
+            throw new RuntimeException("Payment not found");
+        }
+        paymentRepository.deleteById(id);
+    }
+
     private String maskCardNumber(String cardNumber) {
         return "****-****-****-" + cardNumber.substring(12);
     }

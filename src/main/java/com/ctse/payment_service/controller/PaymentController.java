@@ -38,8 +38,26 @@ public class PaymentController {
         return paymentService.getAllPayments();
     }
 
+    @PutMapping("/{id}")
+    public Map<String, Object> updatePayment(@PathVariable String id, @Valid @RequestBody PaymentRequest request) {
+        Payment updatedPayment = paymentService.updatePaymentById(id, request);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Payment updated successfully");
+        response.put("payment", updatedPayment);
+        return response;
+    }
+
     @GetMapping("/paymentDetails")
     public List<PaymentOrderDetailResponseDTO> getPaymentDetailsWithOrder() {
         return paymentService.getPaymentDetailsWithOrder();
+    }
+
+    @DeleteMapping("/{id}")
+    public Map<String, Object> deletePayment(@PathVariable String id) {
+        paymentService.deletePaymentById(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Payment deleted successfully");
+        response.put("id", id);
+        return response;
     }
 }

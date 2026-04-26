@@ -14,6 +14,10 @@ public interface PaymentService {
 
     List<Payment> getAllPayments();
 
+    Payment updatePaymentById(String id, PaymentRequest request);
+
+    void deletePaymentById(String id);
+
     List<PaymentOrderDetailResponseDTO> getPaymentDetailsWithOrder();
 
 }
